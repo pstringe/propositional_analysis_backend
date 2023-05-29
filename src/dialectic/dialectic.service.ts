@@ -1,24 +1,43 @@
 import { Injectable } from '@nestjs/common';
 import { CreateDialecticDto } from './dto/create-dialectic.dto';
 import { UpdateDialecticDto } from './dto/update-dialectic.dto';
+import { Dialectic } from './entities/dialectic.entity';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class DialecticService {
+  constructor(
+    @InjectRepository(Dialectic)
+    private dialecticRepository: Repository<Dialectic>,
+  ) {}
+
   create(createDialecticDto: CreateDialecticDto) {
     console.log(createDialecticDto);
-    return 'This action adds a new dialectic';
+    return this.dialecticRepository.create({
+      ...createDialecticDto,
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+    });
   }
 
   findAll() {
-    return `This action returns all dialectic`;
+    return this.dialecticRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} dialectic`;
+    return this.dialecticRepository.findOne({
+      where: {
+        id,
+      },
+    });
   }
 
   update(id: number, updateDialecticDto: UpdateDialecticDto) {
-    return `This action updates a #${id} dialectic`;
+    return this.dialecticRepository.save({
+      id,
+      ...updateDialecticDto,
+    });
   }
 
   remove(id: number) {
