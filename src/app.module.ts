@@ -6,6 +6,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PropositionModule } from './proposition/proposition.module';
 import { Dialectic } from './dialectic/entities/dialectic.entity';
+import { Proposition } from './proposition/entities/proposition.entity';
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { Dialectic } from './dialectic/entities/dialectic.entity';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
-        entities: [Dialectic],
+        entities: [Dialectic, Proposition],
         synchronize: true,
       }),
       inject: [ConfigService],
