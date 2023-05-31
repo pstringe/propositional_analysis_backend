@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { CreateDialecticDto } from './dto/create-dialectic.dto';
 import { UpdateDialecticDto } from './dto/update-dialectic.dto';
 import { Dialectic } from './entities/dialectic.entity';
-import { Repository } from 'typeorm';
+import { Repository, Timestamp } from 'typeorm';
+import { to_timestamp } from 'pg';
 import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
@@ -12,13 +13,13 @@ export class DialecticService {
     private dialecticRepository: Repository<Dialectic>,
   ) {}
 
-  create(createDialecticDto: CreateDialecticDto) {
+  async create(createDialecticDto: CreateDialecticDto) {
     console.log(createDialecticDto);
-    return this.dialecticRepository.create({
+    const dialectic = this.dialecticRepository.create({
       ...createDialecticDto,
-      createdAt: Date.now(),
-      updatedAt: Date.now(),
     });
+    await this.dialecticRepository.save(dialectic);
+    return dialectic;
   }
 
   findAll() {

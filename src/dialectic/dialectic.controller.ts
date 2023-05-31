@@ -16,8 +16,8 @@ export class DialecticController {
   constructor(private readonly dialecticService: DialecticService) {}
 
   @Post()
-  create(@Body() createDialecticDto: CreateDialecticDto) {
-    return this.dialecticService.create(createDialecticDto);
+  async create(@Body() createDialecticDto: CreateDialecticDto) {
+    return await this.dialecticService.create(createDialecticDto);
   }
 
   @Get()

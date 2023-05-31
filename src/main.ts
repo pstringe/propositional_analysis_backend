@@ -10,7 +10,7 @@ const whitelist = [
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors({ origin: whitelist, credentials: true })
+  app.enableCors({ origin: whitelist, credentials: true });
   await app.listen(8080);
 }
 bootstrap();

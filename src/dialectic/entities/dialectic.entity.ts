@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+  CreateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class Dialectic {
@@ -8,9 +14,9 @@ export class Dialectic {
   @Column({ length: 50 })
   name: string;
 
-  @Column()
+  @CreateDateColumn()
   createdAt: Date;
 
-  @Column()
-  updatedAt: Date;
+  @UpdateDateColumn()
+  updatedDate: Date;
 }
