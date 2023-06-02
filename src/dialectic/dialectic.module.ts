@@ -8,5 +8,6 @@ import { Dialectic } from './entities/dialectic.entity';
   imports: [TypeOrmModule.forFeature([Dialectic])],
   controllers: [DialecticController],
   providers: [DialecticService],
+  exports: [DialecticService],
 })
 export class DialecticModule {}

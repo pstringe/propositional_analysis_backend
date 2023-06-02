@@ -17,6 +17,7 @@ export class DialecticController {
 
   @Post()
   async create(@Body() createDialecticDto: CreateDialecticDto) {
+    console.log({ createDialecticDto });
     return await this.dialecticService.create(createDialecticDto);
   }
 

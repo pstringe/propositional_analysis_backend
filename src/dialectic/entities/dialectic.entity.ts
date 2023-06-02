@@ -13,7 +13,7 @@ export class Dialectic {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToMany(() => Proposition, (proposition) => proposition.id)
+  @OneToMany(() => Proposition, (proposition) => proposition.dialectic)
   propositions: Proposition[];
 
   @Column({ length: 50 })

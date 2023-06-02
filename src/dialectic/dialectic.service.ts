@@ -21,7 +21,11 @@ export class DialecticService {
   }
 
   findAll() {
-    return this.dialecticRepository.find();
+    return this.dialecticRepository.find({
+      relations: {
+        propositions: true,
+      },
+    });
   }
 
   findOne(id: number) {

@@ -7,6 +7,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PropositionModule } from './proposition/proposition.module';
 import { Dialectic } from './dialectic/entities/dialectic.entity';
 import { Proposition } from './proposition/entities/proposition.entity';
+import { TokensModule } from './tokens/tokens.module';
+import { Token } from './tokens/entities/token.entity';
 
 @Module({
   imports: [
@@ -22,12 +24,12 @@ import { Proposition } from './proposition/entities/proposition.entity';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
-        entities: [Dialectic, Proposition],
+        entities: [Dialectic, Proposition, Token],
         synchronize: true,
       }),
       inject: [ConfigService],
     }),
-    PropositionModule,
+    TokensModule,
   ],
   controllers: [AppController],
   providers: [AppService],
