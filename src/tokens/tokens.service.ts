@@ -12,15 +12,18 @@ export class TokensService {
     private tokenRepository: Repository<Token>,
   ) {}
 
-  async tokenizeString(text: string) {
+  async tokenizeString(text: string): Promise<number[]> {
     const words = text.split(' ');
-    words.map(async (word) => {
-      let token = await this.findByString(word);
-      if (!token) {
-        token = await this.create({ text: word });
-      }
-      return token;
-    });
+    const tokenization = Promise.all(
+      words.map(async (word) => {
+        let token = await this.findByString(word);
+        if (!token) {
+          token = await this.create({ text: word });
+        }
+        return token.id;
+      }),
+    );
+    return tokenization;
   }
 
   async findByString(text: string) {

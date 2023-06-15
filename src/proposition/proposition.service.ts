@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { Proposition } from './entities/proposition.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DialecticService } from 'src/dialectic/dialectic.service';
+import { TokensService } from 'src/tokens/tokens.service';
 
 @Injectable()
 export class PropositionService {
@@ -12,16 +13,20 @@ export class PropositionService {
     @InjectRepository(Proposition)
     private propositionsRepository: Repository<Proposition>,
     private dialecticService: DialecticService,
+    private tokensService: TokensService,
   ) {}
 
   async create(createPropositionDto: CreatePropositionDto) {
     const dialectic = await this.dialecticService.findOne(
       createPropositionDto.dialectic,
     );
-    console.log({ dialectic });
+    const tokenization = await this.tokensService.tokenizeString(
+      createPropositionDto.proposition,
+    );
     const proposition = await this.propositionsRepository.create({
       ...createPropositionDto,
       dialectic,
+      tokenization,
     });
     console.log({ proposition });
     await this.propositionsRepository.save(proposition);
